@@ -3,7 +3,7 @@ import factories.*
 import personajes.*
 import receta.*
 
-/// INGREDIENETS ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// INGREDIENTES ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const ingredientesCapa1= ["1Chocolate.png","1Marmolado.png","1Vainilla.png","1Frutilla.png","1RedVelvet.png"] 
 const ingredientesCapa2= ["2Arandano.png","2Chocolate.png","2Frutilla.png","2Vainilla.png","2Crema.png"] 
 const ingredientesCapa3= ["3GlaseadoChoco.png","3GlaseadoMixto.png","3Bolitas.png","3Granas.png","3Salsa.png"] 
