@@ -30,6 +30,23 @@ object chef {
 		inventario.remove(ingredienteRandom)
 		
 	}
+	method moverseHaciaArriba(){
+		if (self.puedeDarOtroPaso()) self.position(position.up(1))
+	}
+	
+	method puedeDarOtroPaso() = self.position().y() < 10
+	
+	method moverseHaciaAbajo(){
+		self.position(position.down(1))
+	}
+	
+	method moverseHaciaIzquierda(){
+		self.position(position.left(1))
+	}
+	
+	method moverseHaciaDerecha(){
+		self.position(position.right(1))
+	}
 	
 }
 

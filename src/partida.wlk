@@ -62,8 +62,13 @@ object partida{
 		})
 		
 		/*****Chef*****/
+		keyboard.up().onPressDo( { chef.moverseHaciaArriba() } )
+		keyboard.down().onPressDo( { chef.moverseHaciaAbajo() } )
+		keyboard.left().onPressDo( { chef.moverseHaciaIzquierda() } )
+		keyboard.right().onPressDo( { chef.moverseHaciaDerecha() } )
 		
-		game.addVisualCharacter(chef)
+		//game.addVisualCharacter(chef)
+		game.addVisual(chef)
 		game.addVisual(bandeja)
 		game.addVisual(mensajeChef)
 		
