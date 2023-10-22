@@ -1,67 +1,54 @@
 import wollok.game.*
 import factories.*
-import personajes.*
-import receta.*
 
-/// INGREDIENTES ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const ingredientesCapa1= ["1Chocolate.png","1Marmolado.png","1Vainilla.png","1Frutilla.png","1RedVelvet.png"] 
-const ingredientesCapa2= ["2Arandano.png","2Chocolate.png","2Frutilla.png","2Vainilla.png","2Crema.png"] 
-const ingredientesCapa3= ["3GlaseadoChoco.png","3GlaseadoMixto.png","3Bolitas.png","3Granas.png","3Salsa.png"] 
-const ingredientesCapa4= ["4Cereza.png","4Frutilla.png","4Naranja.png","4Chocolate.png","4Arandano.png"] 
+//////////// INGREDIENTES ///////////////////////////////////////////////////////////////////////////////////////////
+
+	const saborChocolate = new IngredienteCapa1 (nombre = "Chocolate")
+	const saborMarmolado = new IngredienteCapa1 (nombre = "Marmolado")
+	const saborVainilla = new IngredienteCapa1 (nombre = "Vainilla")
+	const saborFrutilla = new IngredienteCapa1 (nombre = "Frutilla")
+	const saborRedVelvet = new IngredienteCapa1 (nombre = "RedVelvet")
+
+	const ingredientesCapa1= [saborChocolate, saborMarmolado, saborVainilla, saborFrutilla, saborRedVelvet] 
+	
+
+	const cremaArandano = new IngredienteCapa2 (nombre = "Arandano")
+	const cremaChocolate = new IngredienteCapa2 (nombre = "Chocolate")
+	const cremaFrutilla = new IngredienteCapa2 (nombre = "Frutilla")
+	const cremaVainilla = new IngredienteCapa2 (nombre = "Vainilla")
+	const crema = new IngredienteCapa2 (nombre = "Crema")
+	
+	const ingredientesCapa2= [cremaArandano, cremaChocolate, cremaFrutilla, cremaVainilla, crema]
+	
+	const cremaMohoArandano = new IngredienteCapa2 (tieneMoho = true , nombre = "MohoArandano")
+	const cremaMohoChocolate = new IngredienteCapa2 (tieneMoho = true, nombre = "MohoChocolate")
+	const cremaMohoFrutilla = new IngredienteCapa2 (tieneMoho = true, nombre = "MohoFrutilla")
+	const cremaMohoVainilla = new IngredienteCapa2 (tieneMoho = true, nombre = "MohoVainilla")
+	const cremaMoho = new IngredienteCapa2 (tieneMoho =true, nombre = "MohoCrema")
+	
+	const ingredientesMohosos=[cremaMohoArandano, cremaMohoChocolate, cremaMohoFrutilla, cremaMohoVainilla, cremaMoho ] 
+
+
+	const glaseadoChoco = new IngredienteCapa3 (nombre = "GlaseadoChoco")
+	const glaseadoMixto = new IngredienteCapa3 (nombre = "GlaseadoMixto")
+	const bolitas = new IngredienteCapa3(nombre = "Bolitas")
+	const granas = new IngredienteCapa3 (nombre = "Granas")
+	const salsa = new IngredienteCapa3 (nombre = "Salsa")
+	
+	const ingredientesCapa3= [glaseadoChoco, glaseadoMixto, bolitas, granas, salsa] 
+
+
+	const cereza = new IngredienteCapa4 (nombre = "Cereza")
+	const frutilla = new IngredienteCapa4 (nombre = "Frutilla")
+	const naranja = new IngredienteCapa4 (nombre = "Naranja")
+	const chocolate = new IngredienteCapa4 (nombre = "Chocolate")
+	const arandano = new IngredienteCapa4 (nombre = "Arandano")
+	
+	const ingredientesCapa4= [cereza, frutilla, naranja, chocolate, arandano] 
+
 
 const todosLosIngredientes = ingredientesCapa1 + ingredientesCapa2 + ingredientesCapa3 + ingredientesCapa4 
 
-const ingredientesMohosos=["Moho2Arandano.png","Moho2Chocolate.png","Moho2Frutilla.png","Moho2Vainilla.png","Moho2Crema.png"] 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-class Ingrediente inherits Visual(position = new Position(x = 9.randomUpTo(61),y = 45)){
-	
-	method caer(){ 
-		game.onTick(500, "caida", {self.position(position.down(1))})
-	}
-	
-	method inventario(){}
-	/* Falta agregar que cuando el ingrediente llega a la fila 9 desaparezca, implementar... */
-}
-
-object proveedor{
-	
-	const property aquellosQueCaen = self.seleccionarIngredientes()
-	
-	method seleccionarIngredientes(){
-		const ingredientesPedidos = []
-		const ingredientesExtra = []
-		
-		//Todos los ingredienets que se necesitan para las recetas
-		chef.recetas().forEach{receta => ingredientesPedidos.addAll(receta.ingredientes())}
-		//Ingredientes Adicionales
-		8.times({i => ingredientesExtra.add(todosLosIngredientes.anyOne())})
-		3.times({i => ingredientesExtra.add(ingredientesMohosos.anyOne())})
-		
-		return ingredientesPedidos + ingredientesExtra
-	}
-	
-	method tirarIngrediente(){
-		if(aquellosQueCaen.isEmpty()){
-			
-			game.removeTickEvent("Lluvia de Ingredientes")
-			game.onTick(10000,"Siguiente", {
-				game.addVisual(new Visual(image = "Instruccion.png",position=game.at(50,2)))
-				game.say(mensajeChef,"Listos para armar CupCakes!")
-			})
-
-		}
-		else{
-			
-			const ingrediente = new Ingrediente(image = aquellosQueCaen.anyOne())
-			game.addVisual(ingrediente)
-			aquellosQueCaen.remove(ingrediente.image())
-			ingrediente.caer()
-		}
-		
-	}
-	
-}
-		
-	
+// ! las 5 listas de cada categoria se pueden obtener de todosLosIngredientes si  se ponen los objetos de una ahi
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -3,23 +3,36 @@ import factories.*
 import ingredientes.*
 
 
+object chef {
+	
+	const property recetas=[]
+	
+	method crearReceta(abscisa,ordenada){
+		const receta = new Receta(position=game.at(abscisa,ordenada))
+		recetas.add(receta)
+		game.addVisual(receta)
+		receta.mostrarReceta()
+	}
+		
+}
+
 class Receta inherits Visual(image="CuadernoRecetas.png"){
 	
-	//Ingredientes receta/////////////////////////////////
-	const property capa1 = ingredientesCapa1.anyOne()
-	const property capa2 = ingredientesCapa2.anyOne()
-	const property capa3 = ingredientesCapa3.anyOne()
-	const property capa4 = ingredientesCapa4.anyOne()
+	//Ingredientes receta/////////////////////////////////////////////
+	const property sabor = ingredientesCapa1.anyOne()
+	const property cremita = ingredientesCapa2.anyOne()
+	const property cobertura = ingredientesCapa3.anyOne()
+	const property decoracion = ingredientesCapa4.anyOne()
 	
-	const property ingredientes =[capa1,capa2,capa3,capa4]
-	///////////////////////////////////////////////////////
+	const property ingredientes =[sabor,cremita,cobertura,decoracion]
+	//////////////////////////////////////////////////////////////////
 	
 	method mostrarReceta(){
 		
-		game.addVisual(new Visual(image=capa1,position=self.posicionIngrediente(4)))
-		game.addVisual(new Visual(image=capa2,position=self.posicionIngrediente(8)))
-		game.addVisual(new Visual(image=capa3,position=self.posicionIngrediente(12)))
-		game.addVisual(new Visual(image=capa4,position=self.posicionIngrediente(16)))
+		game.addVisual(new Visual(image=sabor.id(),position=self.posicionIngrediente(4)))
+		game.addVisual(new Visual(image=cremita.id(),position=self.posicionIngrediente(8)))
+		game.addVisual(new Visual(image=cobertura.id(),position=self.posicionIngrediente(12)))
+		game.addVisual(new Visual(image=decoracion.id(),position=self.posicionIngrediente(16)))
 			
 	}
 	
@@ -29,5 +42,3 @@ class Receta inherits Visual(image="CuadernoRecetas.png"){
 		return new Position(x = abscisaReceta+12, y = ordenadaReceta+n)
 	}
 }
-
-

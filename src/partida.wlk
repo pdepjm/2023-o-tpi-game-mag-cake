@@ -1,19 +1,20 @@
 import wollok.game.*
 import factories.*
 import receta.*
-import personajes.*
+import devorador.*
+import jugador.*
 import ingredientes.*
+import proveedor.*
 
 const anchoTablero = 75
 const altoTablero = 50
-//const altoPiso = 10
-
 
 object partida{
 	
 	////////////////// DIMENSIONES TABLERO ///////////////////
 	
 	method tableroBase(){
+		game.clear()
 		game.cellSize(20)
 		game.width(anchoTablero)
 		game.height(altoTablero)
@@ -22,8 +23,6 @@ object partida{
 	////////////////////////// INTRO /////////////////////////
 	
 	method iniciar(){
-		
-		game.clear()
 		game.title("Operacion CupCakes")
 		self.tableroBase()
 		game.boardGround("PantallaInicio.png")	
@@ -34,10 +33,8 @@ object partida{
 	////////////////////// PRIMERA PARTE //////////////////////
 	
 	method revelarRecetas(){
-		
-		game.clear()
 		self.tableroBase()
-		game.addVisual(new Fondo(image ="FondoBase.png"))
+		game.addVisual(new Visual(image ="FondoBase.png"))
 		chef.crearReceta(5,19)
 		chef.crearReceta(29,19)
 		chef.crearReceta(53,19)
@@ -49,36 +46,8 @@ object partida{
 	////////////////////// SEGUNDA PARTE //////////////////////
 	
 	method caceriaSalvaje(){
-		
-		game.clear()
 		self.tableroBase()
-		game.addVisual(new Fondo(image ="FondoCaida.png"))
-		
-		/*****Ingredientes*****/
-		proveedor.tirarIngrediente()// para que haya un primer ingrediente cayendo
-		
-		game.onTick(4500, "Lluvia de Ingredientes", {
-			proveedor.tirarIngrediente()
-		})
-		
-		/*****Chef*****/
-		keyboard.up().onPressDo( { chef.moverseHaciaArriba() } )
-		keyboard.down().onPressDo( { chef.moverseHaciaAbajo() } )
-		keyboard.left().onPressDo( { chef.moverseHaciaIzquierda() } )
-		keyboard.right().onPressDo( { chef.moverseHaciaDerecha() } )
-		
-		//game.addVisualCharacter(chef)
-		game.addVisual(chef)
-		game.addVisual(bandeja)
-		game.addVisual(mensajeChef)
-		
-		game.say(mensajeChef,"Cuidado con los mohosos")
-		
-		game.whenCollideDo(bandeja, {ingrediente => 
-			chef.capturarIngrediente(ingrediente)
-			game.removeVisual(ingrediente) 
-			
-		})
+		game.addVisual(new Visual(image ="FondoCaida.png"))
 		
 		/*****Devorador*****/
 		game.addVisual(devorador)
@@ -91,9 +60,46 @@ object partida{
 			personaje.position(personaje.position().right(3))
 			devorador.devorar()
 		})
+		/*****Aprediz de Chef (jugador)*****/
+		game.addVisual(aprendizDeChef)
+		game.addVisual(bandeja)
+		game.addVisual(mensajeAprendiz)
+		
+		keyboard.up().onPressDo( {aprendizDeChef.moverseHaciaArriba() } )
+		keyboard.down().onPressDo( {aprendizDeChef.moverseHaciaAbajo() } )
+		keyboard.left().onPressDo( {aprendizDeChef.moverseHaciaIzquierda() } )
+		keyboard.right().onPressDo( {aprendizDeChef.moverseHaciaDerecha() } )
+		
+		game.say(mensajeAprendiz,"Cuidado con los mohosos")
+		
+		game.whenCollideDo(bandeja, {unidad => 
+			aprendizDeChef.capturarUnidad(unidad)
+			unidad.atrapado()
+			game.removeVisual(unidad)
+		})
+		
+		/*****Ingredientes*****/
+		proveedor.tirarIngredientePorUnidad()// para que haya un primer ingrediente cayendo
+		
+		game.onTick(4000, "Lluvia de Ingredientes", {
+			proveedor.tirarIngredientePorUnidad()
+		})
+		
+		keyboard.c().onPressDo{self.comenzarArmadoCupCakes()}
+	}
+	
+	method comenzarArmadoCupCakes(){
+		game.clear()
+		self.tableroBase()
+		game.addVisual(new Visual(image ="FondoArmado.png"))
 		
 	}
 	
-	
+	method avisarFinDeCaceria(){
+		game.schedule(14000,{
+				game.addVisual(new Visual(image = "Instruccion.png",position=game.at(50,2)))
+				game.say(mensajeAprendiz,"Listos para armar CupCakes!")
+			})
 	}
+}
 
