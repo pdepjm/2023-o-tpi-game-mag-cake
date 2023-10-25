@@ -35,10 +35,16 @@ class IngredienteCapa4 inherits Ingrediente(capa="4"){}
 /////// PARA LA LLUVIA DE INGREDIENTES //////////////////////////////////////////////////////////////////////////////////////////
 
 class Unidad{ 
-	var property position = new Position(x = 9.randomUpTo(61),y = 45)
+	//var property position = new Position(x = 9.randomUpTo(61),y = 45)
+	var property position = new Position(x = self.asignarRandom() , y = 45)
 	
 	const property ingredienteRepresentado
 	var estaAtrapado = false
+			
+	method asignarRandom(){
+		const list = [10,16,22,28,34,40,46,52,58]
+		return list.anyOne()
+	}
 	method image()= ingredienteRepresentado.id()
 	method atrapado(){
 		estaAtrapado=true

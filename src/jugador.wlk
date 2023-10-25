@@ -32,11 +32,11 @@ object aprendizDeChef {
 	}
 	
 	method moverseHaciaIzquierda(){
-		self.position(position.left(1))
+		self.position(position.left(2)) // se mueve mas rapido y siempre PAR
 	}
 	
 	method moverseHaciaDerecha(){
-		self.position(position.right(1))
+		self.position(position.right(2)) // se mueve mas rapido y siempre PAR
 	}
 	/*************************************************************************/
 }

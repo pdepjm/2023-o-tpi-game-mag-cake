@@ -57,7 +57,7 @@ object partida{
 		})
 		
 		game.whenCollideDo(devorador, {personaje =>
-			personaje.position(personaje.position().right(3))
+			personaje.position(personaje.position().right(2))
 			devorador.devorar()
 		})
 		/*****Aprediz de Chef (jugador)*****/

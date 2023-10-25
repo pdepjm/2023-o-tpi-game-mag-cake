@@ -7,7 +7,8 @@ object devorador{
 	method image() = "devorador.png"
 	
 	method moverseRandom(){
-	const x = 15.randomUpTo(anchoTablero-25).truncate(0)
+	//const x = 15.randomUpTo(anchoTablero-25).truncate(0)
+	const x = 5.randomUpTo(30).truncate(0) *2 // para que sea PAR
     const y = 7.randomUpTo(10).truncate(0)
 	position = game.at(x,y)
 	}
