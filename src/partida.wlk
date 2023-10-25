@@ -1,6 +1,6 @@
 import wollok.game.*
 import ingredientes.*
-import receta.*
+import chefYSusRecetas.*
 import devorador.*
 import jugador.*
 import ingredientesInstanciados.*

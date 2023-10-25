@@ -1,6 +1,6 @@
 import wollok.game.*
 import partida.*
-import receta.*
+import chefYSusRecetas.*
 import ingredientesInstanciados.*
 import ingredientes.*
 import jugador.*
@@ -118,6 +118,7 @@ object botonOp4{
 	method image()="Entregar.png"
 	
 	method presionar(){
+		chef.puntuarCupCake()
 		chef.recetas().remove(estacionDeArmado.recetaAsignada())
 		estacionDeArmado.recetaAsignada().removerReceta()
 		game.removeVisual(estacionDeArmado.recetaAsignada())

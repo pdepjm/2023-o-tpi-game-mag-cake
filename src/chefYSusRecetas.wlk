@@ -1,9 +1,11 @@
 import wollok.game.*
 import ingredientes.*
 import ingredientesInstanciados.*
+import estacionDeArmado.*
+import partida.*
 
 
-object chef {
+object chef inherits Visual(image="Chef.png",position=game.at(50,26)){
 	
 	const property recetas=[]
 	
@@ -13,9 +15,37 @@ object chef {
 		game.addVisual(receta)
 		receta.mostrarReceta()
 	}
+		method puntuarCupCake(){
+		game.addVisual(self)
+		game.addVisual(mensajeChef)
+		game.say(mensajeChef,"Tu puntaje: "+self.calcularPuntaje())
+		game.schedule(2500,{
+			game.addVisual(new Visual(image="PresioneEnter.png",position=game.at(23,13)))
+		})
+		keyboard.enter().onPressDo{partida.armarCupCakes()}
+		
+	}
+	
+	method calcularPuntaje(){
+		const cupCake=estacionDeArmado.cupCake()
+		const receta = estacionDeArmado.recetaAsignada()
+		const coincidencias= cupCake.count{ingrediente=>receta.ingredientes().contains(ingrediente)
+		}
+		const mohoso = cupCake.any{ingrediente=>ingrediente.conMoho()}
+		
+		var puntaje = coincidencias*25
+		if(mohoso)puntaje-=12
+		
+		return puntaje
+		
+	}
 		
 }
-
+object mensajeChef{
+	method position() = chef.position().up(1).right(7)
+}
+//////////////////////////////////////////////////////////////////////
+	
 class Receta inherits Visual(image="CuadernoRecetas.png"){
 	
 	//Ingredientes receta/////////////////////////////////////////////

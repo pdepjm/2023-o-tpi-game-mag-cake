@@ -1,5 +1,5 @@
 import wollok.game.*
-import receta.*
+import chefYSusRecetas.*
 import partida.*
 import ingredientes.*
 import ingredientesInstanciados.*
