@@ -50,6 +50,7 @@ class Unidad{
 		const list = [10,16,22,28,34,40,46,52,58]
 		return list.anyOne()
 	}
+	method tieneMoho() = tieneMoho
 	method image(){
 		if(tieneMoho) return "Moho" + ingredienteRepresentado.id()
 		else return ingredienteRepresentado.id()

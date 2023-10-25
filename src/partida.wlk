@@ -90,7 +90,6 @@ object partida{
 	}
 	
 	method armarCupCakes(){
-		game.clear()
 		self.tableroBase()
 		game.addVisual(new Visual(image ="FondoArmado.png"))
 		
