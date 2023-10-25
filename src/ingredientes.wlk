@@ -1,54 +1,70 @@
 import wollok.game.*
-import factories.*
 
-//////////// INGREDIENTES ///////////////////////////////////////////////////////////////////////////////////////////
+class Visual {
+	const property image
+	var property position = game.origin()
+}
+/////// PARA LOS INGREDIENTES ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-	const saborChocolate = new IngredienteCapa1 (nombre = "Chocolate")
-	const saborMarmolado = new IngredienteCapa1 (nombre = "Marmolado")
-	const saborVainilla = new IngredienteCapa1 (nombre = "Vainilla")
-	const saborFrutilla = new IngredienteCapa1 (nombre = "Frutilla")
-	const saborRedVelvet = new IngredienteCapa1 (nombre = "RedVelvet")
-
-	const ingredientesCapa1= [saborChocolate, saborMarmolado, saborVainilla, saborFrutilla, saborRedVelvet] 
+class Ingrediente{
+	const nombre
+	const property capa
+	var property conMoho = false
 	
+	method id()=capa + nombre + ".png"
+	method idSinStock() = "SinStock" + self.id()
+	method idBoton() = "Opcion" + self.id()
+	method idCupCake() = "Armado" + self.id()		
+}
 
-	const cremaArandano = new IngredienteCapa2 (nombre = "Arandano")
-	const cremaChocolate = new IngredienteCapa2 (nombre = "Chocolate")
-	const cremaFrutilla = new IngredienteCapa2 (nombre = "Frutilla")
-	const cremaVainilla = new IngredienteCapa2 (nombre = "Vainilla")
-	const crema = new IngredienteCapa2 (nombre = "Crema")
+
+class IngredienteCapa1 inherits Ingrediente(capa="1"){
+	override method idSinStock()= "SinStockSabor.png"
+}
+
+class IngredienteCapa2 inherits Ingrediente(capa="2"){
+	override method idCupCake() {
+		if (conMoho)return "Moho"+ super()
+		else return super()
+	}
 	
-	const ingredientesCapa2= [cremaArandano, cremaChocolate, cremaFrutilla, cremaVainilla, crema]
+	override method idSinStock()= "SinStockCrema.png"
 	
-	const cremaMohoArandano = new IngredienteCapa2 (tieneMoho = true , nombre = "MohoArandano")
-	const cremaMohoChocolate = new IngredienteCapa2 (tieneMoho = true, nombre = "MohoChocolate")
-	const cremaMohoFrutilla = new IngredienteCapa2 (tieneMoho = true, nombre = "MohoFrutilla")
-	const cremaMohoVainilla = new IngredienteCapa2 (tieneMoho = true, nombre = "MohoVainilla")
-	const cremaMoho = new IngredienteCapa2 (tieneMoho =true, nombre = "MohoCrema")
+	method contaminarse(){conMoho=true}
+}
+class IngredienteCapa3 inherits Ingrediente(capa="3"){}
+class IngredienteCapa4 inherits Ingrediente(capa="4"){}
+
+
+/////// PARA LA LLUVIA DE INGREDIENTES //////////////////////////////////////////////////////////////////////////////////////////
+
+class Unidad{ 
+	const property ingredienteRepresentado
+	const tieneMoho = false
+	var property position = new Position(x = self.asignarRandom() , y = 45)
 	
-	const ingredientesMohosos=[cremaMohoArandano, cremaMohoChocolate, cremaMohoFrutilla, cremaMohoVainilla, cremaMoho ] 
-
-
-	const glaseadoChoco = new IngredienteCapa3 (nombre = "GlaseadoChoco")
-	const glaseadoMixto = new IngredienteCapa3 (nombre = "GlaseadoMixto")
-	const bolitas = new IngredienteCapa3(nombre = "Bolitas")
-	const granas = new IngredienteCapa3 (nombre = "Granas")
-	const salsa = new IngredienteCapa3 (nombre = "Salsa")
+	var estaAtrapado = false
 	
-	const ingredientesCapa3= [glaseadoChoco, glaseadoMixto, bolitas, granas, salsa] 
-
-
-	const cereza = new IngredienteCapa4 (nombre = "Cereza")
-	const frutilla = new IngredienteCapa4 (nombre = "Frutilla")
-	const naranja = new IngredienteCapa4 (nombre = "Naranja")
-	const chocolate = new IngredienteCapa4 (nombre = "Chocolate")
-	const arandano = new IngredienteCapa4 (nombre = "Arandano")
+			
+	method asignarRandom(){
+		const list = [10,16,22,28,34,40,46,52,58]
+		return list.anyOne()
+	}
+	method image(){
+		if(tieneMoho) return "Moho" + ingredienteRepresentado.id()
+		else return ingredienteRepresentado.id()
+	}
+	method atrapado(){
+		estaAtrapado=true
+	}
 	
-	const ingredientesCapa4= [cereza, frutilla, naranja, chocolate, arandano] 
-
-
-const todosLosIngredientes = ingredientesCapa1 + ingredientesCapa2 + ingredientesCapa3 + ingredientesCapa4 
-
-// ! las 5 listas de cada categoria se pueden obtener de todosLosIngredientes si  se ponen los objetos de una ahi
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	method caer(){ 
+		game.onTick(500,"caida", {
+			position=position.down(1)
+			if(position.y()== 9 && !estaAtrapado){
+				game.removeVisual(self) 
+			} 
+		})
+	}
+}
 

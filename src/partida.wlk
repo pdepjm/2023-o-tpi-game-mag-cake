@@ -1,10 +1,11 @@
 import wollok.game.*
-import factories.*
+import ingredientes.*
 import receta.*
 import devorador.*
 import jugador.*
-import ingredientes.*
+import ingredientesInstanciados.*
 import proveedor.*
+import estacionDeArmado.*
 
 const anchoTablero = 75
 const altoTablero = 50
@@ -85,13 +86,25 @@ object partida{
 			proveedor.tirarIngredientePorUnidad()
 		})
 		
-		keyboard.c().onPressDo{self.comenzarArmadoCupCakes()}
+		keyboard.c().onPressDo{self.armarCupCakes()}
 	}
 	
-	method comenzarArmadoCupCakes(){
+	method armarCupCakes(){
 		game.clear()
 		self.tableroBase()
 		game.addVisual(new Visual(image ="FondoArmado.png"))
+		
+		/*****Seleccionador*****/
+		seleccionador.position(game.at(14,4))
+		game.addVisual(seleccionador)
+		const instruccion= new Visual(image="PresioneEspacio.png", position=game.at(15,13))
+		game.addVisual(instruccion)
+		game.schedule(3000,{game.removeVisual(instruccion)})
+		keyboard.left().onPressDo({seleccionador.moverseHaciaIzquierda()})		
+		keyboard.right().onPressDo({seleccionador.moverseHaciaDerecha()})
+		keyboard.space().onPressDo{seleccionador.seleccionar()}
+		
+		estacionDeArmado.hacerUnCupCake()
 		
 	}
 	

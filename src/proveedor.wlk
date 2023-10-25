@@ -1,8 +1,8 @@
 import wollok.game.*
 import partida.*
-import factories.*
-import receta.*
 import ingredientes.*
+import receta.*
+import ingredientesInstanciados.*
 import jugador.*
 
 object proveedor{
@@ -12,25 +12,28 @@ object proveedor{
 	method seleccionarIngredientes(){
 		const ingredientesNecesarios = []
 		const ingredientesExtra = []
+		const agregarUnidadesPorReceta={receta=>receta.ingredientes().forEach{ingrediente =>ingredientesNecesarios.add(new Unidad(ingredienteRepresentado = ingrediente))}}
 		
 		//Todos los ingredienets que se necesitan para las recetas
-		chef.recetas().forEach{receta => ingredientesNecesarios.addAll(receta.ingredientes())}
+		chef.recetas().forEach{receta => agregarUnidadesPorReceta.apply(receta)}
 		//Ingredientes Adicionales
-		5.times({i => ingredientesExtra.add(todosLosIngredientes.anyOne())})
-		3.times({i => ingredientesExtra.add(ingredientesMohosos.anyOne())})
+		5.times({i => ingredientesExtra.add(new Unidad(ingredienteRepresentado = todosLosIngredientes.anyOne()))})
+		3.times({i => ingredientesExtra.add(new Unidad(ingredienteRepresentado = ingredientesCapa2.anyOne(), tieneMoho= true))})
 		
 		return ingredientesNecesarios + ingredientesExtra
 	}
 	
 	method tirarIngredientePorUnidad(){
 		if(pedidoIngredientes.isEmpty()){
+			
 			game.removeTickEvent("Lluvia de Ingredientes")
 			partida.avisarFinDeCaceria()
 		}
 		else{
-			const ingrediente = pedidoIngredientes.anyOne()
-			ingrediente.nuevaUnidad()
-			pedidoIngredientes.remove(ingrediente)
+			const nuevaUnidad = pedidoIngredientes.anyOne()
+			pedidoIngredientes.remove(nuevaUnidad)
+			game.addVisual(nuevaUnidad)
+			nuevaUnidad.caer()
 		}
 	}
 	

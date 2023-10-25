@@ -1,6 +1,6 @@
 import wollok.game.*
-import factories.*
 import ingredientes.*
+import ingredientesInstanciados.*
 
 
 object chef {
@@ -26,19 +26,25 @@ class Receta inherits Visual(image="CuadernoRecetas.png"){
 	
 	const property ingredientes =[sabor,cremita,cobertura,decoracion]
 	//////////////////////////////////////////////////////////////////
-	
-	method mostrarReceta(){
-		
-		game.addVisual(new Visual(image=sabor.id(),position=self.posicionIngrediente(4)))
-		game.addVisual(new Visual(image=cremita.id(),position=self.posicionIngrediente(8)))
-		game.addVisual(new Visual(image=cobertura.id(),position=self.posicionIngrediente(12)))
-		game.addVisual(new Visual(image=decoracion.id(),position=self.posicionIngrediente(16)))
-			
-	}
+	var imagenes=[]
 	
 	method posicionIngrediente(n){
 		const abscisaReceta = position.x()
 		const ordenadaReceta = position.y()
 		return new Position(x = abscisaReceta+12, y = ordenadaReceta+n)
+	}
+	method mostrarReceta(){
+		
+		const imagenSabor = new Visual(image=sabor.id(),position=self.posicionIngrediente(4))
+		const imagenCremita=new Visual(image=cremita.id(),position=self.posicionIngrediente(8))
+		const imagenCobertura=new Visual(image=cobertura.id(),position=self.posicionIngrediente(12))
+		const imagenDecoracion=new Visual(image=decoracion.id(),position=self.posicionIngrediente(16))
+		imagenes=[imagenSabor, imagenCremita, imagenCobertura, imagenDecoracion]
+		
+		imagenes.forEach{imagen=>game.addVisual(imagen)}
+	}
+	
+	method removerReceta(){
+		imagenes.forEach{imagen=>game.removeVisual(imagen)}
 	}
 }

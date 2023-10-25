@@ -1,8 +1,8 @@
 import wollok.game.*
 import receta.*
 import partida.*
-import factories.*
 import ingredientes.*
+import ingredientesInstanciados.*
 
 object aprendizDeChef {
 	
@@ -14,8 +14,9 @@ object aprendizDeChef {
 	method capturarUnidad(unidad){
 		inventario.add(unidad.ingredienteRepresentado())
 		
-		if(unidad.ingredienteRepresentado().tieneMoho()){
+		if(unidad.tieneMoho()){
 			game.say( mensajeAprendiz,"Nooo! un mohoso")
+			unidad.ingredienteRepresentado().contaminarse()
 		}
 	}
 	method perderUnidad(){
@@ -32,11 +33,11 @@ object aprendizDeChef {
 	}
 	
 	method moverseHaciaIzquierda(){
-		self.position(position.left(2)) // se mueve mas rapido y siempre PAR
+		self.position(position.left(2)) 
 	}
 	
 	method moverseHaciaDerecha(){
-		self.position(position.right(2)) // se mueve mas rapido y siempre PAR
+		self.position(position.right(2)) 
 	}
 	/*************************************************************************/
 }
@@ -50,7 +51,25 @@ object mensajeAprendiz{
 	method position() = aprendizDeChef.position().up(9).right(7)
 }
 //////////////////////////////////////////////////////////////////////		
-
+object seleccionador inherits Visual(image="Seleccionador.png", position=game.at(14,4)){
+	var property eligio = false
+	
+	method seleccionar(){
+		const botonSeleccionado = game.colliders(self).last()
+		botonSeleccionado.presionar()
+	}
+	
+	/*****Movimiento ********************************************************/
+	method moverseHaciaIzquierda(){
+		if (self.position().x() > 14) self.position(position.left(8))
+	}
+	
+	method moverseHaciaDerecha(){
+		if (self.position().x() < 54)self.position(position.right(8)) 
+	} 
+	/*************************************************************************/
+	
+}
 
 
 
