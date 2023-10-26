@@ -5,10 +5,11 @@ import ingredientes.*
 import ingredientesInstanciados.*
 
 object aprendizDeChef {
-	
 	const property inventario=[]
-	
+
+	var puntaje = 0
 	var property position = game.at(30,1)
+
 	method image() = "AprendizDeChef.png"
 	
 	method capturarUnidad(unidad){
@@ -23,6 +24,10 @@ object aprendizDeChef {
 		const unidadRandom = inventario.anyOne()
 		inventario.remove(unidadRandom)
 	}
+
+	method sumarPuntos(puntos){puntaje += puntos}
+	method puntaje() = puntaje
+
 	/*****Movimiento ********************************************************/
 	method moverseHaciaArriba(){
 		if (self.position().y() < 9) self.position(position.up(1))
@@ -45,7 +50,7 @@ object aprendizDeChef {
 //////// OBJETOS INVSIBLES ///////////////////////////////////////////
 object bandeja{
 	method position() = aprendizDeChef.position().up(11) 
-	}
+}
 	
 object mensajeAprendiz{
 	method position() = aprendizDeChef.position().up(9).right(7)

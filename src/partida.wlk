@@ -80,8 +80,7 @@ object partida{
 		})
 		
 		/*****Ingredientes*****/
-		proveedor.tirarIngredientePorUnidad()// para que haya un primer ingrediente cayendo
-		
+				
 		game.onTick(2300, "Lluvia de Ingredientes", {
 			proveedor.tirarIngredientePorUnidad()
 		})
@@ -107,11 +106,26 @@ object partida{
 		
 	}
 	
+	method gameOver(){
+		self.tableroBase()
+		game.addVisual(new Fondo(image = "FondoGameOver.png"))
+
+		const estrellasObtenidas = aprendizDeChef.puntaje().div(100)
+		
+		estrellasObtenidas.times{i => 
+			const posiciones = [new Position(x = 21, y = 24), new Position(x = 45, y = 24), new Position(x = 33, y = 28)]
+			const unaPosicion = posiciones.get(i-1)
+			game.addVisual(new Visual(image = "estrella.png", position = unaPosicion))
+		}	
+
+		keyboard.enter().onPressDo{game.stop()}
+	}
+
 	method avisarFinDeCaceria(){
 		game.schedule(9000,{
 				game.addVisual(new Visual(image = "Instruccion.png",position=game.at(50,2)))
 				game.say(mensajeAprendiz,"Listos para armar CupCakes!")
-			})
+		})
 	}
 }
 
