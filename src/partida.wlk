@@ -82,7 +82,7 @@ object partida{
 		/*****Ingredientes*****/
 		proveedor.tirarIngredientePorUnidad()// para que haya un primer ingrediente cayendo
 		
-		game.onTick(4000, "Lluvia de Ingredientes", {
+		game.onTick(2300, "Lluvia de Ingredientes", {
 			proveedor.tirarIngredientePorUnidad()
 		})
 		
@@ -108,7 +108,7 @@ object partida{
 	}
 	
 	method avisarFinDeCaceria(){
-		game.schedule(14000,{
+		game.schedule(9000,{
 				game.addVisual(new Visual(image = "Instruccion.png",position=game.at(50,2)))
 				game.say(mensajeAprendiz,"Listos para armar CupCakes!")
 			})

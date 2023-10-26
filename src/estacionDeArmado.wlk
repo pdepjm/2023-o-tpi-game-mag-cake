@@ -35,10 +35,9 @@ class BarraOpciones{
 	
 	method insertarBotones(){
 		5.times{i=>
-			const posiciones = [new Position(x=14,y=4), new Position(x=22,y=4), new Position(x=30,y=4),new Position(x=38,y=4),new Position(x=46,y=4)]
-			
+	
 			const ingrediente = opciones.get(i-1)
-			const posicion = posiciones.get(i-1)
+			const posicion = new Position(x=14+(i-1)*8, y=4)
 			
 			const boton = new BotonIngrediente(ingredienteRepresentado=ingrediente)
 			game.addVisualIn(boton, posicion)

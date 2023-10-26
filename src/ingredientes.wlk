@@ -60,7 +60,7 @@ class Unidad{
 	}
 	
 	method caer(){ 
-		game.onTick(500,"caida", {
+		game.onTick(200,"caida", {
 			position=position.down(1)
 			if(position.y()== 9 && !estaAtrapado){
 				game.removeVisual(self) 

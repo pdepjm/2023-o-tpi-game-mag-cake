@@ -17,7 +17,7 @@ object proveedor{
 		//Todos los ingredienets que se necesitan para las recetas
 		chef.recetas().forEach{receta => agregarUnidadesPorReceta.apply(receta)}
 		//Ingredientes Adicionales
-		5.times({i => ingredientesExtra.add(new Unidad(ingredienteRepresentado = todosLosIngredientes.anyOne()))})
+		8.times({i => ingredientesExtra.add(new Unidad(ingredienteRepresentado = todosLosIngredientes.anyOne()))})
 		3.times({i => ingredientesExtra.add(new Unidad(ingredienteRepresentado = ingredientesCapa2.anyOne(), tieneMoho= true))})
 		
 		return ingredientesNecesarios + ingredientesExtra
