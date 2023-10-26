@@ -12,7 +12,7 @@ object estacionDeArmado {
 	method hacerUnCupCake(){
 		
 		if(chef.recetas().isEmpty())
-			game.stop()
+			partida.gameOver()
 		else{
 			cupCake=[] 
 			recetaAsignada=chef.recetas().head()

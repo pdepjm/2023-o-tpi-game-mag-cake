@@ -3,6 +3,7 @@ import ingredientes.*
 import ingredientesInstanciados.*
 import estacionDeArmado.*
 import partida.*
+import jugador.*
 
 
 object chef inherits Visual(image="Chef.png", position = game.at(50,26)){
@@ -22,7 +23,7 @@ object chef inherits Visual(image="Chef.png", position = game.at(50,26)){
 		game.addVisual(mensajeChef)
 		aprendizDeChef.sumarPuntos(puntaje)
 		game.say(mensajeChef,"Tu puntaje: " + puntaje)
-		game.schedule(2500,{
+		game.schedule(1500,{
 			game.addVisual(new Visual(image = "PresioneEnter.png", position = game.at(23,13)))
 		})
 		keyboard.enter().onPressDo{partida.armarCupCakes()}	

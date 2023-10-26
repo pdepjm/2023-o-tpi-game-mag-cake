@@ -71,7 +71,7 @@ object partida{
 		keyboard.left().onPressDo( {aprendizDeChef.moverseHaciaIzquierda() } )
 		keyboard.right().onPressDo( {aprendizDeChef.moverseHaciaDerecha() } )
 		
-		game.say(mensajeAprendiz,"Cuidado con los mohosos")
+		game.say(mensajeAprendiz,"Cuidado con los mohosos...")
 		
 		game.whenCollideDo(bandeja, {unidad => 
 			aprendizDeChef.capturarUnidad(unidad)
@@ -81,7 +81,7 @@ object partida{
 		
 		/*****Ingredientes*****/
 				
-		game.onTick(2300, "Lluvia de Ingredientes", {
+		game.onTick(2500, "Lluvia de Ingredientes", {
 			proveedor.tirarIngredientePorUnidad()
 		})
 		
@@ -97,7 +97,7 @@ object partida{
 		game.addVisual(seleccionador)
 		const instruccion= new Visual(image="PresioneEspacio.png", position=game.at(15,13))
 		game.addVisual(instruccion)
-		game.schedule(3000,{game.removeVisual(instruccion)})
+		game.schedule(5000,{game.removeVisual(instruccion)})
 		keyboard.left().onPressDo({seleccionador.moverseHaciaIzquierda()})		
 		keyboard.right().onPressDo({seleccionador.moverseHaciaDerecha()})
 		keyboard.space().onPressDo{seleccionador.seleccionar()}
@@ -108,21 +108,21 @@ object partida{
 	
 	method gameOver(){
 		self.tableroBase()
-		game.addVisual(new Fondo(image = "FondoGameOver.png"))
+		game.addVisual(new Visual(image = "FondoGameOver.png"))
 
 		const estrellasObtenidas = aprendizDeChef.puntaje().div(100)
 		
 		estrellasObtenidas.times{i => 
 			const posiciones = [new Position(x = 21, y = 24), new Position(x = 45, y = 24), new Position(x = 33, y = 28)]
 			const unaPosicion = posiciones.get(i-1)
-			game.addVisual(new Visual(image = "estrella.png", position = unaPosicion))
+			game.addVisual(new Visual(image = "Estrella.png", position = unaPosicion))
 		}	
 
 		keyboard.enter().onPressDo{game.stop()}
 	}
 
 	method avisarFinDeCaceria(){
-		game.schedule(9000,{
+		game.schedule(8000,{
 				game.addVisual(new Visual(image = "Instruccion.png",position=game.at(50,2)))
 				game.say(mensajeAprendiz,"Listos para armar CupCakes!")
 		})
