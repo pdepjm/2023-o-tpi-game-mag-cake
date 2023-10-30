@@ -1,6 +1,5 @@
 import wollok.game.*
 import ingredientes.*
-import ingredientesInstanciados.*
 import estacionDeArmado.*
 import partida.*
 import jugador.*
@@ -8,8 +7,9 @@ import jugador.*
 
 object chef inherits Visual(image="Chef.png", position = game.at(50,26)){
 	
-	const property recetas = []
+	const recetas = []
 	
+	method recetas() = recetas
 	method crearReceta(abscisa,ordenada){
 		const receta = new Receta(position = game.at(abscisa,ordenada))
 		recetas.add(receta)
@@ -37,7 +37,7 @@ object chef inherits Visual(image="Chef.png", position = game.at(50,26)){
 		const mohoso = cupCake.any{ingrediente => ingrediente.conMoho()}
 		
 		var puntaje = coincidencias * 25
-		if(mohoso) puntaje -= 12
+		if(mohoso) puntaje -= 10
 		
 		return puntaje
 	}
@@ -49,16 +49,17 @@ object mensajeChef{
 	
 class Receta inherits Visual(image = "CuadernoRecetas.png"){
 	
-	//Ingredientes receta/////////////////////////////////////////////
-	const property sabor = ingredientesCapa1.anyOne()
-	const property cremita = ingredientesCapa2.anyOne()
-	const property cobertura = ingredientesCapa3.anyOne()
-	const property decoracion = ingredientesCapa4.anyOne()
-	
-	const property ingredientes =[sabor,cremita,cobertura,decoracion]
-	//////////////////////////////////////////////////////////////////
-	
 	var imagenes = []
+	
+	//Ingredientes receta/////////////////////////////////////////////
+	const sabor = ingredientesCapa1.anyOne()
+	const cremita = ingredientesCapa2.anyOne()
+	const cobertura = ingredientesCapa3.anyOne()
+	const decoracion = ingredientesCapa4.anyOne()
+	
+	const ingredientes =[sabor,cremita,cobertura,decoracion]
+	//////////////////////////////////////////////////////////////////
+	method ingredientes() = ingredientes
 	
 	method posicionIngrediente(n){
 		const abscisaReceta = position.x()

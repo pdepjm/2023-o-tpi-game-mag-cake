@@ -8,10 +8,11 @@ class Visual {
 
 class Ingrediente{
 	const nombre
-	const property capa
+	const capa
 	var property conMoho = false
 	
-	method id()=capa + nombre + ".png"
+	method capa() = capa
+	method id() = capa + nombre + ".png"
 	method idSinStock() = "SinStock" + self.id()
 	method idBoton() = "Opcion" + self.id()
 	method idCupCake() = "Armado" + self.id()		
@@ -36,36 +37,53 @@ class IngredienteCapa3 inherits Ingrediente(capa="3"){}
 class IngredienteCapa4 inherits Ingrediente(capa="4"){}
 
 
-/////// PARA LA LLUVIA DE INGREDIENTES //////////////////////////////////////////////////////////////////////////////////////////
 
-class Unidad{ 
-	const property ingredienteRepresentado
-	const tieneMoho = false
-	var property position = new Position(x = self.asignarRandom() , y = 45)
+//////////// INGREDIENTES ///////////////////////////////////////////////////////////////////////////////////////////
+
+	const saborChocolate = new IngredienteCapa1 (nombre = "Chocolate")
+	const saborMarmolado = new IngredienteCapa1 (nombre = "Marmolado")
+	const saborVainilla = new IngredienteCapa1 (nombre = "Vainilla")
+	const saborFrutilla = new IngredienteCapa1 (nombre = "Frutilla")
+	const saborRedVelvet = new IngredienteCapa1 (nombre = "RedVelvet")
+
+	const ingredientesCapa1 = [saborChocolate, saborMarmolado, saborVainilla, saborFrutilla, saborRedVelvet]
+
+	const cremaArandano = new IngredienteCapa2 (nombre = "Arandano")
+	const cremaChocolate = new IngredienteCapa2 (nombre = "Chocolate")
+	const cremaFrutilla = new IngredienteCapa2 (nombre = "Frutilla")
+	const cremaVainilla = new IngredienteCapa2 (nombre = "Vainilla")
+	const crema = new IngredienteCapa2 (nombre = "Crema")
 	
-	var estaAtrapado = false
+	const ingredientesCapa2 = [cremaArandano, cremaChocolate, cremaFrutilla, cremaVainilla, crema]
 	
-			
-	method asignarRandom(){
-		const list = [10,16,22,28,34,40,46,52,58]
-		return list.anyOne()
-	}
-	method tieneMoho() = tieneMoho
-	method image(){
-		if(tieneMoho) return "Moho" + ingredienteRepresentado.id()
-		else return ingredienteRepresentado.id()
-	}
-	method atrapado(){
-		estaAtrapado=true
-	}
 	
-	method caer(){ 
-		game.onTick(200,"caida", {
-			position=position.down(1)
-			if(position.y()== 9 && !estaAtrapado){
-				game.removeVisual(self) 
-			} 
-		})
-	}
-}
+	const glaseadoChoco = new IngredienteCapa3 (nombre = "GlaseadoChoco")
+	const glaseadoMixto = new IngredienteCapa3 (nombre = "GlaseadoMixto")
+	const bolitas = new IngredienteCapa3(nombre = "Bolitas")
+	const granas = new IngredienteCapa3 (nombre = "Granas")
+	const salsa = new IngredienteCapa3 (nombre = "Salsa")
+	
+	const ingredientesCapa3 = [glaseadoChoco, glaseadoMixto, bolitas, granas, salsa] 
+
+
+	const cereza = new IngredienteCapa4 (nombre = "Cereza")
+	const frutilla = new IngredienteCapa4 (nombre = "Frutilla")
+	const naranja = new IngredienteCapa4 (nombre = "Naranja")
+	const chocolate = new IngredienteCapa4 (nombre = "Chocolate")
+	const arandano = new IngredienteCapa4 (nombre = "Arandano")
+	
+	const ingredientesCapa4= [cereza, frutilla, naranja, chocolate, arandano] 
+
+
+const todosLosIngredientes = ingredientesCapa1 + ingredientesCapa2 + ingredientesCapa3 + ingredientesCapa4
+							 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
 

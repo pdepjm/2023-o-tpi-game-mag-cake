@@ -1,14 +1,16 @@
 import wollok.game.*
 import partida.*
 import chefYSusRecetas.*
-import ingredientesInstanciados.*
 import ingredientes.*
 import jugador.*
 
 object estacionDeArmado {
-	var property recetaAsignada
-	var property cupCake=[] 
-
+	var recetaAsignada
+	var cupCake=[] 
+	
+	method recetaAsignada()= recetaAsignada
+	method cupCake()= cupCake
+	
 	method hacerUnCupCake(){
 		
 		if(chef.recetas().isEmpty())
@@ -30,8 +32,8 @@ object estacionDeArmado {
 
 /**********Barra de opciones***************/
 class BarraOpciones{
-	const property opciones
-	const property botonOperacion 
+	const opciones
+	const botonOperacion 
 	
 	method insertarBotones(){
 		5.times{i=>
@@ -56,7 +58,7 @@ const barraDecorados = new BarraOpciones(opciones = ingredientesCapa4, botonOper
 
 /********** Botones ***************/
 class BotonIngrediente{
-	const property ingredienteRepresentado
+	const ingredienteRepresentado
 	method imagenSinStock()=ingredienteRepresentado.idSinStock()
 	
 	method hayIngrediente()= aprendizDeChef.inventario().contains(ingredienteRepresentado)

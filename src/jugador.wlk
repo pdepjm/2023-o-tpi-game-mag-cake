@@ -2,15 +2,18 @@ import wollok.game.*
 import chefYSusRecetas.*
 import partida.*
 import ingredientes.*
-import ingredientesInstanciados.*
 
 object aprendizDeChef {
-	const property inventario=[]
-
+	const inventario=[]
+	
+	var congelado = false
 	var puntaje = 0
 	var property position = game.at(30,1)
 
 	method image() = "AprendizDeChef.png"
+	method inventario() = inventario
+	method congelado(valor){congelado = valor}
+	
 	
 	method capturarUnidad(unidad){
 		inventario.add(unidad.ingredienteRepresentado())
@@ -30,19 +33,19 @@ object aprendizDeChef {
 
 	/*****Movimiento ********************************************************/
 	method moverseHaciaArriba(){
-		if (self.position().y() < 9) self.position(position.up(1))
+		if (self.position().y() < 9 && !congelado) self.position(position.up(1))
 	}
 	
 	method moverseHaciaAbajo(){
-		if (self.position().y() > 1) self.position(position.down(1))
+		if (self.position().y() > 1 && !congelado) self.position(position.down(1))
 	}
 	
 	method moverseHaciaIzquierda(){
-		self.position(position.left(2)) 
+		if (!congelado) self.position(position.left(2)) 
 	}
 	
 	method moverseHaciaDerecha(){
-		self.position(position.right(2)) 
+		if (!congelado) self.position(position.right(2)) 
 	}
 	/*************************************************************************/
 }

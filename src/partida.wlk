@@ -3,7 +3,6 @@ import ingredientes.*
 import chefYSusRecetas.*
 import devorador.*
 import jugador.*
-import ingredientesInstanciados.*
 import proveedor.*
 import estacionDeArmado.*
 
@@ -51,16 +50,10 @@ object partida{
 		game.addVisual(new Visual(image ="FondoCaida.png"))
 		
 		/*****Devorador*****/
-		game.addVisual(devorador)
+		const devorador = new Devorador()
+		devorador.molestar()
 		
-		game.onTick(4000,"movimiento", {
-		devorador.moverseRandom()
-		})
 		
-		game.whenCollideDo(devorador, {personaje =>
-			personaje.position(personaje.position().right(2))
-			devorador.devorar()
-		})
 		/*****Aprediz de Chef (jugador)*****/
 		game.addVisual(aprendizDeChef)
 		game.addVisual(bandeja)
@@ -71,18 +64,19 @@ object partida{
 		keyboard.left().onPressDo( {aprendizDeChef.moverseHaciaIzquierda() } )
 		keyboard.right().onPressDo( {aprendizDeChef.moverseHaciaDerecha() } )
 		
-		game.say(mensajeAprendiz,"Cuidado con los mohosos...")
+		game.say(mensajeAprendiz,"Fijate bien lo que agarrás...")
 		
 		game.whenCollideDo(bandeja, {unidad => 
-			aprendizDeChef.capturarUnidad(unidad)
 			unidad.atrapado()
 			game.removeVisual(unidad)
 		})
+		game.whenCollideDo(aprendizDeChef, {unDevorador =>
+			aprendizDeChef.position(aprendizDeChef.position().right(2))
+			unDevorador.devorar()})
 		
 		/*****Ingredientes*****/
-				
 		game.onTick(2500, "Lluvia de Ingredientes", {
-			proveedor.tirarIngredientePorUnidad()
+			proveedor.tirarUnidad()
 		})
 		
 		keyboard.c().onPressDo{self.armarCupCakes()}
