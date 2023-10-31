@@ -78,12 +78,3 @@ class IngredienteCapa4 inherits Ingrediente(capa="4"){}
 const todosLosIngredientes = ingredientesCapa1 + ingredientesCapa2 + ingredientesCapa3 + ingredientesCapa4
 							 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
