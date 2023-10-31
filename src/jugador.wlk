@@ -78,14 +78,3 @@ object seleccionador inherits Visual(image="Seleccionador.png", position=game.at
 	/*************************************************************************/
 	
 }
-
-
-
-
-
-
-
-
-
-
-
