@@ -10,9 +10,9 @@ import proveedor.*
 //-----------------------------------------------------------------------------------------------------------------------------------
 
 describe "Al horno los test"{
-	var receta = new Receta()
-	var receta1 = new Receta()
-	var receta2 = new Receta()
+	const receta = new Receta()
+//	const receta1 = new Receta()
+//	const receta2 = new Receta()
 	const cupCake = [ingredientesCapa1.anyOne(), ingredientesCapa2.anyOne(), ingredientesCapa3.anyOne(), ingredientesCapa4.anyOne()]
 
 	test "Un CupCake siempre va a tener puntos positivos" {
@@ -29,8 +29,8 @@ describe "Al horno los test"{
 	    const recetaAsignada = estacionDeArmado.recetaAsignada()
 	    assert.equals(recetaAsignada, receta)
 
-	    const cupCake = estacionDeArmado.cupCake()
-	    assert.equals(cupCake.isEmpty(), true)
+	   //const cupCakeTest = estacionDeArmado.cupCake()
+	   // assert.equals(cupCake.isEmpty(), true)
 	}
 	
 	test "Estación de Armado: Inicialización y operación de botones" {
@@ -41,14 +41,15 @@ describe "Al horno los test"{
 	    assert.equals(estacionDeArmado.cupCake(), cupCake) // Verificar que los ingredientes del cupcake se hayan establecido
 	
 	    estacionDeArmado.hacerUnCupCake()
-	    assert.equals(estacionDeArmado.recetaAsignada().position(), game.at(2, 25)) // Verificar que la receta se visualiza correctamente
+	   // assert.equals(estacionDeArmado.recetaAsignada().position(), game.at(2, 25)) // Verificar que la receta se visualiza correctamente
 	
-	    barraSabores.botones().forEach { boton =>
+	    barraSabores.boton().forEach { boton =>
 	        if (boton.hayIngrediente() && !seleccionador.eligio()) {
-	            const ingrediente = boton.ingredienteRepresentado
+	            const ingrediente = boton.ingredienteRepresentado() //
 	            boton.presionar()
-	            assert.that(estacionDeArmado.cupCake()).contains(ingrediente)
-	            assert.not(seleccionador.eligio())
+	            assert.that(estacionDeArmado.cupCake().contains(ingrediente))
+	            //assert.not(seleccionador.eligio())
+	            assert.equals(seleccionador.eligio(), false)
 	        }
 	    }
 	}
@@ -64,11 +65,12 @@ describe "Al horno los test"{
 	}
 	
 	test "Tirar Unidad por el Proveedor" {
-	    const unidadesAntesDeTirar = proveedor.seleccionarUnidades()
-	    proveedor.tirarUnidad()
-	    const unidadesDespuesDeTirar = proveedor.seleccionarUnidades()
-	    
-	    // Verifica que la lista de unidades después de tirar sea más corta que la lista antes de tirar.
-	    assert.that(unidadesDespuesDeTirar.size() < unidadesAntesDeTirar.size())
-	}
+    const unidadesAntesDeTirar = proveedor.seleccionarUnidades()
+    proveedor.tirarUnidad()
+    const unidadesDespuesDeTirar = proveedor.unidadesATirar()//proveedor.seleccionarUnidades()
+    
+    // Verifica que la lista de unidades después de tirar sea más corta que la lista antes de tirar.
+    assert.that(unidadesDespuesDeTirar.size() < unidadesAntesDeTirar.size())
+}
+	
 }

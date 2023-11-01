@@ -4,6 +4,8 @@ import chefYSusRecetas.*
 import ingredientes.*
 import jugador.*
 
+//-----------------------------------------------------------------------------------------------------------------------------------
+
 object estacionDeArmado {
 	var recetaAsignada
 	var cupCake=[] 
@@ -22,15 +24,25 @@ object estacionDeArmado {
 			barraSabores.insertarBotones()
 		}
 	}
+	
 	method visualizarReceta(){
 		recetaAsignada.position(game.at(2,25))
 		game.addVisual(recetaAsignada)
 		recetaAsignada.mostrarReceta()
 	}
-}
-/////// PARA EL ARMADO DEL CUPCAKE /////////////////////////////////////////////////////////////////////////////////////////////
+	
+	method setCupCake(nuevoCupCake) {
+  		cupCake = nuevoCupCake
+	}
+	
+	method setRecetaAsignada(nuevaReceta) {
+	  	recetaAsignada = nuevaReceta
+	}
 
-/**********Barra de opciones***************/
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------
+
 class BarraOpciones{
 	const opciones
 	const botonOperacion 
@@ -50,13 +62,13 @@ class BarraOpciones{
 	}
 }
 
-
 const barraSabores = new BarraOpciones(opciones = ingredientesCapa1, botonOperacion = botonOp1)
 const barraCremas = new BarraOpciones(opciones = ingredientesCapa2, botonOperacion = botonOp2)
 const barraCoberturas = new BarraOpciones(opciones = ingredientesCapa3, botonOperacion = botonOp3)
 const barraDecorados = new BarraOpciones(opciones = ingredientesCapa4, botonOperacion = botonOp4)
 
-/********** Botones ***************/
+//-----------------------------------------------------------------------------------------------------------------------------------
+
 class BotonIngrediente{
 	const ingredienteRepresentado
 	method imagenSinStock()=ingredienteRepresentado.idSinStock()
@@ -110,7 +122,8 @@ class BotonConAutocompletado inherits BotonDeOperacion{
 	}
 }
 
-/*Intancias de botones*/
+//-----------------------------------------------------------------------------------------------------------------------------------
+
 const botonOp1 = new BotonConAutocompletado(barraSiguiente = barraCremas, opcionFantasma="SaborFantasma.png",capa="1")
 const botonOp2 = new BotonConAutocompletado(barraSiguiente = barraCoberturas, opcionFantasma="CremaFantasma.png",capa="2")
 const botonOp3 = new BotonDeOperacion(barraSiguiente = barraDecorados)

@@ -2,9 +2,11 @@ import wollok.game.*
 import partida.*
 import jugador.*
 
+//-----------------------------------------------------------------------------------------------------------------------------------
+
 class Devorador{
 	var position = game.at(20,5)
-	method position()= position
+	method position() = position
 	method image() = "devorador.png"
 	
 	method moverseRandom(){

@@ -5,6 +5,7 @@
 	<classpathentry kind="src" path="assets Escenarios"/>
 	<classpathentry kind="src" path="assets CupCake"/>
 	<classpathentry kind="src" path="assets BarraOpciones"/>
+	<classpathentry kind="src" path="assets Sonidos"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="assets Unidades"/>

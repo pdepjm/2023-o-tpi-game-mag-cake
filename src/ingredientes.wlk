@@ -1,10 +1,13 @@
 import wollok.game.*
 
+//-----------------------------------------------------------------------------------------------------------------------------------
+
 class Visual {
 	const property image
 	var property position = game.origin()
 }
-/////// PARA LOS INGREDIENTES ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+//-----------------------------------------------------------------------------------------------------------------------------------
 
 class Ingrediente{
 	const nombre
@@ -36,9 +39,7 @@ class IngredienteCapa2 inherits Ingrediente(capa="2"){
 class IngredienteCapa3 inherits Ingrediente(capa="3"){}
 class IngredienteCapa4 inherits Ingrediente(capa="4"){}
 
-
-
-//////////// INGREDIENTES ///////////////////////////////////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------------------------------------------------------------
 
 	const saborChocolate = new IngredienteCapa1 (nombre = "Chocolate")
 	const saborMarmolado = new IngredienteCapa1 (nombre = "Marmolado")
@@ -56,7 +57,6 @@ class IngredienteCapa4 inherits Ingrediente(capa="4"){}
 	
 	const ingredientesCapa2 = [cremaArandano, cremaChocolate, cremaFrutilla, cremaVainilla, crema]
 	
-	
 	const glaseadoChoco = new IngredienteCapa3 (nombre = "GlaseadoChoco")
 	const glaseadoMixto = new IngredienteCapa3 (nombre = "GlaseadoMixto")
 	const bolitas = new IngredienteCapa3(nombre = "Bolitas")
@@ -64,7 +64,6 @@ class IngredienteCapa4 inherits Ingrediente(capa="4"){}
 	const salsa = new IngredienteCapa3 (nombre = "Salsa")
 	
 	const ingredientesCapa3 = [glaseadoChoco, glaseadoMixto, bolitas, granas, salsa] 
-
 
 	const cereza = new IngredienteCapa4 (nombre = "Cereza")
 	const frutilla = new IngredienteCapa4 (nombre = "Frutilla")
@@ -75,6 +74,4 @@ class IngredienteCapa4 inherits Ingrediente(capa="4"){}
 	const ingredientesCapa4= [cereza, frutilla, naranja, chocolate, arandano] 
 
 
-const todosLosIngredientes = ingredientesCapa1 + ingredientesCapa2 + ingredientesCapa3 + ingredientesCapa4
-							 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	const todosLosIngredientes = ingredientesCapa1 + ingredientesCapa2 + ingredientesCapa3 + ingredientesCapa4

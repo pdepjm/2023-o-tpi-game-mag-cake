@@ -5,10 +5,11 @@ import chefYSusRecetas.*
 import jugador.*
 import devorador.*
 
+//-----------------------------------------------------------------------------------------------------------------------------------
 
 object proveedor {
 	
-	const unidadesATirar = self.seleccionarUnidades()
+	const property unidadesATirar = self.seleccionarUnidades()
 	
 	method seleccionarUnidades(){
 		const ingredientesNecesarios = []
@@ -47,7 +48,7 @@ object proveedor {
 	
 }
 
-//// UNIDADES/////////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------------------------------------------------------------
 
 class Unidad{ 
 	
@@ -114,12 +115,3 @@ class Hielito inherits Unidad{
 		game.schedule(2500,{aprendizDeChef.congelado(false)})
 	}
 }
-
-
-
-
-
-
-
-
-

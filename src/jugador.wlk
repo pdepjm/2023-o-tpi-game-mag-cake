@@ -3,6 +3,8 @@ import chefYSusRecetas.*
 import partida.*
 import ingredientes.*
 
+//-----------------------------------------------------------------------------------------------------------------------------------
+
 object aprendizDeChef {
 	const inventario=[]
 	
@@ -23,6 +25,7 @@ object aprendizDeChef {
 			unidad.ingredienteRepresentado().contaminarse()
 		}
 	}
+	
 	method perderUnidad(){
 		const unidadRandom = inventario.anyOne()
 		inventario.remove(unidadRandom)
@@ -31,7 +34,6 @@ object aprendizDeChef {
 	method sumarPuntos(puntos){puntaje += puntos}
 	method puntaje() = puntaje
 
-	/*****Movimiento ********************************************************/
 	method moverseHaciaArriba(){
 		if (self.position().y() < 9 && !congelado) self.position(position.up(1))
 	}
@@ -47,10 +49,10 @@ object aprendizDeChef {
 	method moverseHaciaDerecha(){
 		if (!congelado) self.position(position.right(2)) 
 	}
-	/*************************************************************************/
 }
 
-//////// OBJETOS INVSIBLES ///////////////////////////////////////////
+//-----------------------------------------------------------------------------------------------------------------------------------
+
 object bandeja{
 	method position() = aprendizDeChef.position().up(11) 
 }
@@ -58,7 +60,9 @@ object bandeja{
 object mensajeAprendiz{
 	method position() = aprendizDeChef.position().up(9).right(7)
 }
-//////////////////////////////////////////////////////////////////////		
+
+//-----------------------------------------------------------------------------------------------------------------------------------
+
 object seleccionador inherits Visual(image="Seleccionador.png", position=game.at(14,4)){
 	var property eligio = false
 	
@@ -67,7 +71,6 @@ object seleccionador inherits Visual(image="Seleccionador.png", position=game.at
 		botonSeleccionado.presionar()
 	}
 	
-	/*****Movimiento ********************************************************/
 	method moverseHaciaIzquierda(){
 		if (self.position().x() > 14) self.position(position.left(8))
 	}
@@ -75,6 +78,5 @@ object seleccionador inherits Visual(image="Seleccionador.png", position=game.at
 	method moverseHaciaDerecha(){
 		if (self.position().x() < 54)self.position(position.right(8)) 
 	} 
-	/*************************************************************************/
 	
 }

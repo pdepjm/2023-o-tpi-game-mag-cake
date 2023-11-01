@@ -6,12 +6,14 @@ import jugador.*
 import proveedor.*
 import estacionDeArmado.*
 
+//-----------------------------------------------------------------------------------------------------------------------------------
+
 const anchoTablero = 75
 const altoTablero = 50
 
 object partida{
-	
-	////////////////// DIMENSIONES TABLERO ///////////////////
+	const fondo = game.sound("Fondo.mp3")
+	const estrellas = game.sound("Estrellas.mp3")
 	
 	method tableroBase(){
 		game.clear()
@@ -20,17 +22,18 @@ object partida{
 		game.height(altoTablero)
 	}
 	
-	////////////////////////// INTRO /////////////////////////
-	
 	method iniciar(){
 		game.title("Operacion CupCakes")
 		self.tableroBase()
 		game.boardGround("PantallaInicio.png")	
+		
+		
+		fondo.shouldLoop(true)
+		game.schedule(500, { fondo.play()} )
+		
+		
 		keyboard.enter().onPressDo{self.revelarRecetas()}
 	}
-	
-	
-	////////////////////// PRIMERA PARTE //////////////////////
 	
 	method revelarRecetas(){
 		self.tableroBase()
@@ -42,19 +45,13 @@ object partida{
 
 	}
 	
-	
-	////////////////////// SEGUNDA PARTE //////////////////////
-	
 	method caceriaSalvaje(){
 		self.tableroBase()
 		game.addVisual(new Visual(image ="FondoCaida.png"))
-		
-		/*****Devorador*****/
+
 		const devorador = new Devorador()
 		devorador.molestar()
 		
-		
-		/*****Aprediz de Chef (jugador)*****/
 		game.addVisual(aprendizDeChef)
 		game.addVisual(bandeja)
 		game.addVisual(mensajeAprendiz)
@@ -70,11 +67,11 @@ object partida{
 			unidad.atrapado()
 			game.removeVisual(unidad)
 		})
+		
 		game.whenCollideDo(aprendizDeChef, {unDevorador =>
 			aprendizDeChef.position(aprendizDeChef.position().right(2))
 			unDevorador.devorar()})
 		
-		/*****Ingredientes*****/
 		game.onTick(2500, "Lluvia de Ingredientes", {
 			proveedor.tirarUnidad()
 		})
@@ -85,8 +82,7 @@ object partida{
 	method armarCupCakes(){
 		self.tableroBase()
 		game.addVisual(new Visual(image ="FondoArmado.png"))
-		
-		/*****Seleccionador*****/
+
 		seleccionador.position(game.at(14,4))
 		game.addVisual(seleccionador)
 		const instruccion= new Visual(image="PresioneEspacio.png", position=game.at(15,13))
@@ -101,10 +97,14 @@ object partida{
 	}
 	
 	method gameOver(){
+		fondo.pause()
 		self.tableroBase()
 		game.addVisual(new Visual(image = "FondoGameOver.png"))
 
 		const estrellasObtenidas = aprendizDeChef.puntaje().div(100)
+		
+		estrellas.shouldLoop(false)
+		game.schedule(500, { estrellas.play()} )
 		
 		estrellasObtenidas.times{i => 
 			const posiciones = [new Position(x = 21, y = 24), new Position(x = 45, y = 24), new Position(x = 33, y = 28)]
@@ -122,4 +122,3 @@ object partida{
 		})
 	}
 }
-
