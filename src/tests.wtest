@@ -1,6 +1,74 @@
+import wollok.game.*
+import chefYSusRecetas.*
+import devorador.*
+import estacionDeArmado.*
+import ingredientes.*
+import jugador.*
+import partida.*
+import proveedor.*
 
-test "testX" {
+//-----------------------------------------------------------------------------------------------------------------------------------
 
-	assert.that(true)
+describe "Al horno los test"{
+	var receta = new Receta()
+	var receta1 = new Receta()
+	var receta2 = new Receta()
+	const cupCake = [ingredientesCapa1.anyOne(), ingredientesCapa2.anyOne(), ingredientesCapa3.anyOne(), ingredientesCapa4.anyOne()]
 
+	test "Un CupCake siempre va a tener puntos positivos" {
+    	estacionDeArmado.setCupCake(cupCake)
+    	estacionDeArmado.setRecetaAsignada(receta)
+    	chef.puntuarCupCake()
+    	assert.equals(chef.calcularPuntaje() >= 0, true)
+  	}
+  
+	test "Crear un CupCake" {
+	    chef.recetas().add(receta)
+	    estacionDeArmado.hacerUnCupCake()
+	    
+	    const recetaAsignada = estacionDeArmado.recetaAsignada()
+	    assert.equals(recetaAsignada, receta)
+
+	    const cupCake = estacionDeArmado.cupCake()
+	    assert.equals(cupCake.isEmpty(), true)
+	}
+	
+	test "Estación de Armado: Inicialización y operación de botones" {
+	    estacionDeArmado.setRecetaAsignada(receta)
+	    estacionDeArmado.setCupCake(cupCake)
+	
+	    assert.equals(estacionDeArmado.recetaAsignada(), receta) // Verificar que la receta se haya asignado correctamente
+	    assert.equals(estacionDeArmado.cupCake(), cupCake) // Verificar que los ingredientes del cupcake se hayan establecido
+	
+	    estacionDeArmado.hacerUnCupCake()
+	    assert.equals(estacionDeArmado.recetaAsignada().position(), game.at(2, 25)) // Verificar que la receta se visualiza correctamente
+	
+	    barraSabores.botones().forEach { boton =>
+	        if (boton.hayIngrediente() && !seleccionador.eligio()) {
+	            const ingrediente = boton.ingredienteRepresentado
+	            boton.presionar()
+	            assert.that(estacionDeArmado.cupCake()).contains(ingrediente)
+	            assert.not(seleccionador.eligio())
+	        }
+	    }
+	}
+
+	test "Interacción con Devorador" {
+	    const devorador = new Devorador()
+	    game.addVisual(devorador)
+	    aprendizDeChef.position(game.at(20, 5))
+	    
+	    // Realiza una acción que provoque la interacción (por ejemplo, un evento de juego).
+	    
+	    // Verifica que se muestra el mensaje adecuado y que se ejecuta la lógica de juego correcta.
+	}
+	
+	test "Tirar Unidad por el Proveedor" {
+	    const unidadesAntesDeTirar = proveedor.seleccionarUnidades()
+	    proveedor.tirarUnidad()
+	    const unidadesDespuesDeTirar = proveedor.seleccionarUnidades()
+	    
+	    // Verifica que la lista de unidades después de tirar sea más corta que la lista antes de tirar.
+	    assert.that(unidadesDespuesDeTirar.size() < unidadesAntesDeTirar.size())
+	}
 }
