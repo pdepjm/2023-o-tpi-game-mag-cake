@@ -7,9 +7,6 @@
 - Vallecillo, Abril
 - Vergara, Abel
 
-## Capturas
-
-(agregar)
 
 ## Reglas de Juego
 
@@ -32,3 +29,7 @@ Hecho el CupCake el mismisimo Chef se ocupará de puntuarlo y solo conseguirás 
 Que te diviertas!
 
 
+## Capturas
+
+![image](https://github.com/pdepjm/2023-o-tpi-game-mag-cake/assets/129804812/ea0d1079-54c4-4ea5-91e1-65dee3791dd3)
+![image](https://github.com/pdepjm/2023-o-tpi-game-mag-cake/assets/129804812/a40dd8bd-409a-4777-89ed-5d95e0edfaa0)
