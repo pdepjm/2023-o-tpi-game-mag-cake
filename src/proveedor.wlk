@@ -15,13 +15,12 @@ object proveedor {
 		const ingredientesNecesarios = []
 		const unidadesExtra = []
 		const agregarUnidadesPorReceta={receta=>receta.ingredientes().forEach{ingrediente =>
-				ingredientesNecesarios.add(new UnidadIngrediente(ingredienteRepresentado = ingrediente))
-		}}
+				ingredientesNecesarios.add(new UnidadIngrediente(ingredienteRepresentado = ingrediente))}}
 		
 		//Todos los ingredientes que se necesitan para las recetas
 		chef.recetas().forEach{receta => agregarUnidadesPorReceta.apply(receta)}
 		//Ingredientes Adicionales
-		8.times({i => unidadesExtra.add(new UnidadIngrediente(ingredienteRepresentado = todosLosIngredientes.anyOne()))})
+		9.times({i => unidadesExtra.add(new UnidadIngrediente(ingredienteRepresentado = todosLosIngredientes.anyOne()))})
 		// unidades sabotaje
 		3.times({i => 
 			unidadesExtra.add(new UnidadIngrediente(ingredienteRepresentado = ingredientesCapa2.anyOne(), tieneMoho= true))
@@ -90,7 +89,9 @@ class UnidadIngrediente inherits Unidad{
 		else return ingredienteRepresentado.id()
 	}
 	
-	override method efecto(){aprendizDeChef.capturarUnidad(self)}
+	override method efecto(){
+		aprendizDeChef.capturarUnidad(self)
+	}
 }
 
 class MultiplicadorDevorador inherits Unidad{

@@ -30,15 +30,6 @@ object estacionDeArmado {
 		game.addVisual(recetaAsignada)
 		recetaAsignada.mostrarReceta()
 	}
-	
-	method setCupCake(nuevoCupCake) {
-  		cupCake = nuevoCupCake
-	}
-	
-	method setRecetaAsignada(nuevaReceta) {
-	  	recetaAsignada = nuevaReceta
-	}
-
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------

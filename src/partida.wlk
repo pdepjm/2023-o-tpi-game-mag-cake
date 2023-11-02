@@ -20,6 +20,7 @@ object partida{
 		game.cellSize(20)
 		game.width(anchoTablero)
 		game.height(altoTablero)
+		
 	}
 	
 	method iniciar(){
@@ -30,6 +31,7 @@ object partida{
 		
 		fondo.shouldLoop(true)
 		game.schedule(500, { fondo.play()} )
+		fondo.volume(0.1)
 		
 		
 		keyboard.enter().onPressDo{self.revelarRecetas()}
@@ -65,6 +67,7 @@ object partida{
 		
 		game.whenCollideDo(bandeja, {unidad => 
 			unidad.atrapado()
+			game.sound("Atrapado.mp3").play()
 			game.removeVisual(unidad)
 		})
 		

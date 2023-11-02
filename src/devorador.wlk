@@ -28,6 +28,7 @@ class Devorador{
 		else {
 			aprendizDeChef.perderUnidad()
 			game.say(self, "ñam ñam")
+			game.sound("niamniam.mp3").play()
 		}
 	}
 }

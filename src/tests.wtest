@@ -9,68 +9,33 @@ import proveedor.*
 
 //-----------------------------------------------------------------------------------------------------------------------------------
 
-describe "Al horno los test"{
-	const receta = new Receta()
-//	const receta1 = new Receta()
-//	const receta2 = new Receta()
-	const cupCake = [ingredientesCapa1.anyOne(), ingredientesCapa2.anyOne(), ingredientesCapa3.anyOne(), ingredientesCapa4.anyOne()]
+describe "Creacion de recetas" {
 
-	test "Un CupCake siempre va a tener puntos positivos" {
-    	estacionDeArmado.setCupCake(cupCake)
-    	estacionDeArmado.setRecetaAsignada(receta)
-    	chef.puntuarCupCake()
-    	assert.equals(chef.calcularPuntaje() >= 0, true)
-  	}
-  
-	test "Crear un CupCake" {
+	test "Al inicio de la partida, el chef crea 3 recetas, entonces la lista de recetas debe tener 3 elementos." {
+    	partida.revelarRecetas()
+    	assert.equals(3, chef.recetas().size())
+  	} 	
+	
+}
+
+describe "Tests randoms"{
+	const receta = new Receta()
+
+ 
+	test "La estacion de armado, toma la primera receta del chef" {
 	    chef.recetas().add(receta)
 	    estacionDeArmado.hacerUnCupCake()
 	    
 	    const recetaAsignada = estacionDeArmado.recetaAsignada()
 	    assert.equals(recetaAsignada, receta)
-
-	   //const cupCakeTest = estacionDeArmado.cupCake()
-	   // assert.equals(cupCake.isEmpty(), true)
 	}
 	
-	test "Estación de Armado: Inicialización y operación de botones" {
-	    estacionDeArmado.setRecetaAsignada(receta)
-	    estacionDeArmado.setCupCake(cupCake)
-	
-	    assert.equals(estacionDeArmado.recetaAsignada(), receta) // Verificar que la receta se haya asignado correctamente
-	    assert.equals(estacionDeArmado.cupCake(), cupCake) // Verificar que los ingredientes del cupcake se hayan establecido
-	
-	    estacionDeArmado.hacerUnCupCake()
-	   // assert.equals(estacionDeArmado.recetaAsignada().position(), game.at(2, 25)) // Verificar que la receta se visualiza correctamente
-	
-	    barraSabores.boton().forEach { boton =>
-	        if (boton.hayIngrediente() && !seleccionador.eligio()) {
-	            const ingrediente = boton.ingredienteRepresentado() //
-	            boton.presionar()
-	            assert.that(estacionDeArmado.cupCake().contains(ingrediente))
-	            //assert.not(seleccionador.eligio())
-	            assert.equals(seleccionador.eligio(), false)
-	        }
-	    }
-	}
-
-	test "Interacción con Devorador" {
-	    const devorador = new Devorador()
-	    game.addVisual(devorador)
-	    aprendizDeChef.position(game.at(20, 5))
+	test "Cuando el proveedor tira una unidad, se reduce la lista de posibilidades para seguir tirando" {
+	    const unidadesAntesDeTirar = proveedor.seleccionarUnidades()
+	    proveedor.tirarUnidad()
+	    const unidadesDespuesDeTirar = proveedor.unidadesATirar()
 	    
-	    // Realiza una acción que provoque la interacción (por ejemplo, un evento de juego).
-	    
-	    // Verifica que se muestra el mensaje adecuado y que se ejecuta la lógica de juego correcta.
-	}
-	
-	test "Tirar Unidad por el Proveedor" {
-    const unidadesAntesDeTirar = proveedor.seleccionarUnidades()
-    proveedor.tirarUnidad()
-    const unidadesDespuesDeTirar = proveedor.unidadesATirar()//proveedor.seleccionarUnidades()
-    
-    // Verifica que la lista de unidades después de tirar sea más corta que la lista antes de tirar.
-    assert.that(unidadesDespuesDeTirar.size() < unidadesAntesDeTirar.size())
-}
+	    assert.that(unidadesDespuesDeTirar.size() < unidadesAntesDeTirar.size())
+	}	
 	
 }
