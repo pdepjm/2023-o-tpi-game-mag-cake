@@ -22,6 +22,7 @@ object aprendizDeChef {
 		
 		if(unidad.tieneMoho()){
 			game.say( mensajeAprendiz,"Nooo! un mohoso")
+			game.sound("Garlic.mp3").play()
 			unidad.ingredienteRepresentado().contaminarse()
 		}
 	}

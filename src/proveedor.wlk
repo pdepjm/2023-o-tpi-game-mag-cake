@@ -1,3 +1,4 @@
+
 import wollok.game.*
 import partida.*
 import ingredientes.*
@@ -104,6 +105,7 @@ class MultiplicadorDevorador inherits Unidad{
 		game.removeVisual(aprendizDeChef)
 		game.addVisual(aprendizDeChef)
 		game.say(mensajeAprendiz, "¿Qué hacés? ESQUIVALO!")
+		game.sound("niamniam.mp3").play()
 	}
 }
 
@@ -113,6 +115,7 @@ class Hielito inherits Unidad{
 	override method efecto(){
 		aprendizDeChef.congelado(true)
 		game.say(mensajeAprendiz, "Me Congeléee!")
+		game.sound("Ice.mp3").play()
 		game.schedule(2500,{aprendizDeChef.congelado(false)})
 	}
 }

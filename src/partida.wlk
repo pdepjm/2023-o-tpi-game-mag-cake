@@ -31,7 +31,7 @@ object partida{
 		
 		fondo.shouldLoop(true)
 		game.schedule(500, { fondo.play()} )
-		fondo.volume(0.1)
+		fondo.volume(0.3)
 		
 		
 		keyboard.enter().onPressDo{self.revelarRecetas()}
