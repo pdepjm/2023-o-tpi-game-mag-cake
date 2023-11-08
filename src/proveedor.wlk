@@ -73,8 +73,10 @@ class Unidad{
 		game.onTick(200,"caida", {
 			position=position.down(1)
 			if(position.y()== 9 && !estaAtrapado){
-				game.removeVisual(self) 
-			} 
+				game.removeVisual(self)
+			}
+			
+			if(position.y()== 0) game.removeTickEvent("caida") //elimino el lagg
 		})
 	}
 }
