@@ -1,6 +1,41 @@
+import wollok.game.*
+import chefYSusRecetas.*
+import devorador.*
+import estacionDeArmado.*
+import ingredientes.*
+import jugador.*
+import partida.*
+import proveedor.*
 
-test "testX" {
+//-----------------------------------------------------------------------------------------------------------------------------------
 
-	assert.that(true)
+describe "Creacion de recetas" {
 
+	test "Al inicio de la partida, el chef crea 3 recetas, entonces la lista de recetas debe tener 3 elementos." {
+    	partida.revelarRecetas()
+    	assert.equals(3, chef.recetas().size())
+  	} 	
+	
+}
+
+describe "Tests randoms"{
+	const receta = new Receta()
+
+ 
+	test "La estacion de armado, toma la primera receta del chef" {
+	    chef.recetas().add(receta)
+	    estacionDeArmado.hacerUnCupCake()
+	    
+	    const recetaAsignada = estacionDeArmado.recetaAsignada()
+	    assert.equals(recetaAsignada, receta)
+	}
+	
+	test "Cuando el proveedor tira una unidad, se reduce la lista de posibilidades para seguir tirando" {
+	    const unidadesAntesDeTirar = proveedor.seleccionarUnidades()
+	    proveedor.tirarUnidad()
+	    const unidadesDespuesDeTirar = proveedor.unidadesATirar()
+	    
+	    assert.that(unidadesDespuesDeTirar.size() < unidadesAntesDeTirar.size())
+	}	
+	
 }
